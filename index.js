@@ -2,7 +2,7 @@
 exports.__esModule = true;
 var express = require("express");
 var app = express();
-var PORT = process.port || 8080;
+var PORT = process.env.port || 8080;
 var Main = (function () {
     function Main() {
         this.routing();
