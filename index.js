@@ -1,10 +1,12 @@
 "use strict";
 exports.__esModule = true;
 var express = require("express");
-var app = express.app();
-var PORT = prosess.port || 8080;
+var app = express();
+var PORT = process.port || 8080;
 var Main = (function () {
     function Main() {
+        this.routing();
+        this.listen();
     }
     Main.prototype.middleware = function () {
     };
@@ -17,7 +19,7 @@ var Main = (function () {
             if (error) {
                 console.error(error);
             }
-            console.log('listen... port = ', PORT);
+            console.log('listen... port:', PORT);
         });
     };
     return Main;
