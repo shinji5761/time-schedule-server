@@ -3,6 +3,11 @@ exports.__esModule = true;
 var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
+// Logger
+var log4js = require("log4js");
+var logger_1 = require("./logger/logger");
+var logger = new logger_1.Logger();
+// Controller
 var record_controller_1 = require("./routing/record/record-controller");
 /**
  * @const
@@ -33,6 +38,8 @@ var Main = (function () {
             extended: true
         }));
         app.use(bodyParser.json());
+        // logger
+        app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
     };
     /**
      * @return { void }
@@ -40,7 +47,12 @@ var Main = (function () {
     Main.prototype.routing = function () {
         var controller = {};
         controller['record'] = new record_controller_1.RecordController(app, '/record');
-        app.get('/', function (request, response) { response.send('HelloWorld'); });
+        app.get('/', function (request, response) {
+            console.log('/ access');
+            console.dir(logger);
+            logger.applog.debug('access!');
+            response.send('HelloWorld');
+        });
     };
     /**
      * @return { void }

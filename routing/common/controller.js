@@ -14,6 +14,11 @@ var Controller = (function () {
         app.get(url, function (request, response) { _this.get(request, response); });
         app.post(url, function (request, response) { _this.post(request, response); });
     }
+    /**
+     * @param response { any }
+     * @param result { any } 返却する値
+     * @param status { any } ステータス(200,500など)
+     */
     Controller.prototype.returnResult = function (response, result, status) {
         response.status(status);
         response.send(result);
