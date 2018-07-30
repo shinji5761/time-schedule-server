@@ -48,8 +48,6 @@ var Main = (function () {
         var controller = {};
         controller['record'] = new record_controller_1.RecordController(app, '/record');
         app.get('/', function (request, response) {
-            console.log('/ access');
-            console.dir(logger);
             logger.applog.debug('access!');
             response.send('HelloWorld');
         });

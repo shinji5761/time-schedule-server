@@ -1,7 +1,12 @@
 "use strict";
 exports.__esModule = true;
+var sql_manager_1 = require("./sql-manager");
+// Logger
+var logger_1 = require("../../logger/logger");
+var logger = new logger_1.Logger();
 var Dao = (function () {
     function Dao() {
+        this.sqlManager = new sql_manager_1.SqlManager();
     }
     /**
      * @param params { any }
@@ -13,10 +18,11 @@ var Dao = (function () {
         var result;
         var status;
         try {
-            result = { 'api': 'get' };
+            this.sqlManager.get('');
             status = 200;
         }
         catch (e) {
+            logger.errorlog.error('sql error:' + e);
             // 場合分けが必要
             status = 303;
         }
