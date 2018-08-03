@@ -16,13 +16,20 @@ var Dao = (function () {
      */
     Dao.prototype.get = function (params, callback, caller) {
         var result;
-        var status;
+        var status = 500;
         try {
             this.sqlManager.get('', function (result) {
                 logger.applog.debug('get sql ok');
+                if (result == undefined) {
+                    logger.errorlog.info('NotFound');
+                    status = 404;
+                }
+                else if (result.length != undefined) {
+                    logger.applog.info(result);
+                    status = 200;
+                }
+                callback.call(caller, result, status);
             }, this);
-            status = 200;
-            callback.call(caller, result, status);
         }
         catch (e) {
             logger.errorlog.error('sql error:' + e);
