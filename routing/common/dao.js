@@ -18,15 +18,18 @@ var Dao = (function () {
         var result;
         var status;
         try {
-            this.sqlManager.get('');
+            this.sqlManager.get('', function (result) {
+                logger.applog.debug('get sql ok');
+            }, this);
             status = 200;
+            callback.call(caller, result, status);
         }
         catch (e) {
             logger.errorlog.error('sql error:' + e);
             // 場合分けが必要
             status = 303;
+            callback.call(caller, result, status);
         }
-        callback.call(caller, result, status);
     };
     /**
      * @param params { any }

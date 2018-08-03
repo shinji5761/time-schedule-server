@@ -1,0 +1,33 @@
+[2018-07-25T23:52:44.578] [DEBUG] app - access!
+[2018-07-29T23:50:51.181] [DEBUG] app - SqlManager get
+[2018-07-29T23:53:22.091] [DEBUG] app - [start]SqlManager get
+[2018-07-29T23:55:36.840] [DEBUG] app - [start]SqlManager get
+[2018-07-29T23:56:05.608] [DEBUG] app - [start]SqlManager get
+[2018-07-29T23:56:05.611] [ERROR] error - sql error:TypeError: db.connection is not a function
+[2018-07-29T23:57:04.013] [DEBUG] app - [start]SqlManager get
+[2018-07-29T23:57:04.421] [ERROR] app - SqlManager get
+[2018-07-29T23:59:03.921] [DEBUG] app - [start]SqlManager get
+[2018-07-29T23:59:04.306] [ERROR] app - SqlManager get
+[2018-07-30T21:17:41.400] [DEBUG] app - [start]SqlManager get
+[2018-07-30T21:17:41.814] [ERROR] app - SqlManager get
+[2018-07-30T21:24:36.570] [DEBUG] app - [start]SqlManager get
+[2018-07-30T21:24:36.598] [ERROR] app - SqlManager get
+[2018-07-30T21:42:53.842] [DEBUG] app - [start]SqlManager get
+[2018-07-30T21:42:53.875] [DEBUG] app - cxonnection success
+[2018-07-30T21:50:31.383] [DEBUG] app - [start]SqlManager get
+[2018-07-30T21:50:31.796] [ERROR] app - SqlManager get
+[2018-07-30T23:59:57.736] [DEBUG] app - [start]SqlManager get
+[2018-07-30T23:59:57.777] [DEBUG] app - cxonnection success
+[2018-07-30T23:59:57.785] [DEBUG] app - get sql ok
+[2018-07-31T00:03:55.123] [DEBUG] app - [start]SqlManager get
+[2018-07-31T00:03:55.174] [DEBUG] app - cxonnection success
+[2018-07-31T00:03:55.183] [DEBUG] app - get sql ok
+[2018-07-31T00:32:45.422] [DEBUG] app - [start]SqlManager get
+[2018-07-31T00:32:45.423] [ERROR] app - cxonnection error
+[2018-07-31T00:33:41.816] [DEBUG] app - [start]SqlManager get
+[2018-07-31T00:33:41.847] [DEBUG] app - cxonnection success
+[2018-07-31T00:33:41.853] [DEBUG] app - get sql ok
+[2018-07-31T00:41:40.622] [DEBUG] app - [start]SqlManager get
+[2018-07-31T00:41:40.656] [DEBUG] app - cxonnection success
+[2018-07-31T00:42:22.985] [DEBUG] app - [start]SqlManager get
+[2018-07-31T00:42:23.023] [DEBUG] app - cxonnection success

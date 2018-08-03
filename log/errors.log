@@ -1,0 +1,7 @@
+[2018-07-29T23:56:05.611] [ERROR] error - sql error:TypeError: db.connection is not a function
+[2018-07-29T23:57:04.421] [ERROR] app - SqlManager get
+[2018-07-29T23:59:04.306] [ERROR] app - SqlManager get
+[2018-07-30T21:17:41.814] [ERROR] app - SqlManager get
+[2018-07-30T21:24:36.598] [ERROR] app - SqlManager get
+[2018-07-30T21:50:31.796] [ERROR] app - SqlManager get
+[2018-07-31T00:32:45.423] [ERROR] app - cxonnection error
