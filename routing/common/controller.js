@@ -1,5 +1,8 @@
 "use strict";
 exports.__esModule = true;
+// Logger
+var logger_1 = require("../../logger/logger");
+var logger = new logger_1.Logger();
 var Controller = (function () {
     /**
      * @constructor
@@ -20,6 +23,8 @@ var Controller = (function () {
      * @param status { any } ステータス(200,500など)
      */
     Controller.prototype.returnResult = function (response, result, status) {
+        logger.applog.debug('status : ' + status);
+        logger.applog.debug('result : ' + result);
         response.status(status);
         response.send(result);
     };
@@ -29,7 +34,8 @@ var Controller = (function () {
      */
     Controller.prototype.get = function (request, response) {
         var _this = this;
-        var body = request.body;
+        var body = request.query.body;
+        logger.infoLogger(this.constructor.name, 'get', 'Request Parameter = ' + body);
         this.dao.get(body, function (result, status) {
             _this.returnResult(response, result, status);
         }, this);
@@ -41,6 +47,7 @@ var Controller = (function () {
     Controller.prototype.post = function (request, response) {
         var _this = this;
         var body = request.body;
+        logger.infoLogger(this.constructor.name, 'post', 'Request Parameter = ' + body);
         this.dao.post(body, function (result, status) {
             _this.returnResult(response, result, status);
         }, this);

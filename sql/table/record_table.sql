@@ -1,9 +1,9 @@
-DROP IF EXISTS TABLE record;
+DROP TABLE IF EXISTS record;
 CREATE TABLE record (
-      no INTEGER
-    , recordDate DATE
+      no SERIAL
+    , recordingDate DATE
     , recordTime VARCHAR(8)
-    , paretntCategoryId VARCHAR(6)
+    , parentCategoryId VARCHAR(6)
     , childCategoryId VARCHAR(6)
     , PRIMARY KEY ( no )
 );

@@ -11,17 +11,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var dao_1 = require("../common/dao");
-var record_manager_1 = require("./record-manager");
-/**
- * @class RecordDao
- * @extends Dao
- * @export
- */
-var RecordDao = (function (_super) {
-    __extends(RecordDao, _super);
-    function RecordDao() {
-        return _super.call(this, new record_manager_1.RecordManager()) || this;
+var category_manager_1 = require("./category-manager");
+var CategoryDao = (function (_super) {
+    __extends(CategoryDao, _super);
+    function CategoryDao() {
+        return _super.call(this, new category_manager_1.CategoryManager()) || this;
     }
-    return RecordDao;
+    return CategoryDao;
 }(dao_1.Dao));
-exports.RecordDao = RecordDao;
+exports.CategoryDao = CategoryDao;

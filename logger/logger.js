@@ -8,6 +8,33 @@ var Logger = (function () {
         this.applog = log4js.getLogger('app');
         this.errorlog = log4js.getLogger('error');
     }
+    /**
+     * DebugLog 表示用メソッド
+     * @param className { string } クラス名
+     * @param methodName { string } メソッド名
+     * @param message { string } メッセージ
+     */
+    Logger.prototype.debugLogger = function (className, methodName, message) {
+        this.applog.debug('[' + className + '] - ' + methodName + ' - ' + message);
+    };
+    /**
+     * InfoLog 表示用メソッド
+     * @param className { string } クラス名
+     * @param methodName { string } メソッド名
+     * @param message { string } メッセージ
+     */
+    Logger.prototype.infoLogger = function (className, methodName, message) {
+        this.applog.info('[' + className + '] - ' + methodName + ' - ' + message);
+    };
+    /**
+     * ErrorLog 表示用メソッド
+     * @param className { string } クラス名
+     * @param methodName { string } メソッド名
+     * @param message { string } メッセージ
+     */
+    Logger.prototype.errorLogger = function (className, methodName, message) {
+        this.errorlog.info('[' + className + '] - ' + methodName + ' - ' + message);
+    };
     return Logger;
 }());
 exports.Logger = Logger;

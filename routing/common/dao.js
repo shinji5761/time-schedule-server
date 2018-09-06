@@ -1,12 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var sql_manager_1 = require("./sql-manager");
 // Logger
 var logger_1 = require("../../logger/logger");
 var logger = new logger_1.Logger();
 var Dao = (function () {
-    function Dao() {
-        this.sqlManager = new sql_manager_1.SqlManager();
+    function Dao(sqlManager) {
+        this.sqlManager = sqlManager;
     }
     /**
      * @param params { any }
@@ -15,27 +14,31 @@ var Dao = (function () {
      * @return { void }
      */
     Dao.prototype.get = function (params, callback, caller) {
+        var _this = this;
+        logger.debugLogger(this.constructor.name, 'get', 'start');
         var result;
         var status = 500;
         try {
-            this.sqlManager.get('', function (result) {
-                logger.applog.debug('get sql ok');
-                if (result == undefined) {
-                    logger.errorlog.info('NotFound');
+            this.sqlManager.get(params, function (error, result) {
+                if (error) {
+                    callback.call(caller, error, status);
+                    return;
+                }
+                if (result.length == 0) {
+                    logger.errorLogger(_this.constructor.name, 'get', 'NotFound');
                     status = 404;
                 }
-                else if (result.length != undefined) {
-                    logger.applog.info(result);
+                else {
+                    logger.infoLogger(_this.constructor.name, 'get', 'SQL Query Result : ' + result);
                     status = 200;
                 }
                 callback.call(caller, result, status);
             }, this);
         }
-        catch (e) {
-            logger.errorlog.error('sql error:' + e);
+        catch (error) {
+            logger.errorLogger(this.constructor.name, 'get', 'Dao Exception:' + error);
             // 場合分けが必要
-            status = 303;
-            callback.call(caller, result, status);
+            callback.call(caller, error, status);
         }
     };
     /**
@@ -45,17 +48,26 @@ var Dao = (function () {
      * @return { void }
      */
     Dao.prototype.post = function (params, callback, caller) {
+        var _this = this;
+        logger.debugLogger(this.constructor.name, 'post', 'start');
         var result;
-        var status;
+        var status = 500;
         try {
-            result = { 'api': 'post' };
-            status = 200;
+            this.sqlManager.post(params, function (error, result) {
+                if (error) {
+                    callback.call(caller, error, status);
+                    return;
+                }
+                logger.infoLogger(_this.constructor.name, 'post', 'SQL Query Result : ' + result);
+                status = 200;
+                callback.call(caller, result, status);
+            }, this);
         }
-        catch (e) {
+        catch (error) {
+            logger.errorLogger(this.constructor.name, 'post', 'Dao Exception:' + error);
             // 場合分けが必要
-            status = 303;
+            callback.call(caller, error, status);
         }
-        callback.call(caller, result, status);
     };
     return Dao;
 }());

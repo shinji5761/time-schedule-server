@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
 var pg = require("pg");
-// import data = require( '../../config/database.json');
-var data = require("../../config/database-heroku.json");
+var data = require("../../config/database.json");
+// import data = require( '../../config/database-heroku.json');
 // Logger
 var logger_1 = require("../../logger/logger");
 var logger = new logger_1.Logger();
@@ -14,16 +14,19 @@ var host = data['host'];
  * @type { number }
  */
 var port = data['port'];
+/**
+ * @type { string }
+ */
 var user = data['user'];
+/**
+ * @type { string }
+ */
 var password = data['password'];
+/**
+ * @type { string }
+ */
 var database = data['database'];
-var db = new pg.Client({
-    'host': host,
-    'user': user,
-    'port': port,
-    'password': password,
-    'database': database
-});
+// Poolingの設定
 pg.Pool({
     'host': host,
     'user': user,
@@ -32,34 +35,27 @@ pg.Pool({
     'connectionTimeoutMillis': 2000
 });
 /**
- *
+ * @class SqlManager
+ * @export
  */
 var SqlManager = (function () {
+    /**
+     * Constructor
+     */
     function SqlManager() {
+        this.pg = pg;
     }
     /**
-     *
-     * @param param { any }
-     * @return { any }
+     * データベース コネクション メソッド
+     * @return { pg.Client }
      */
-    SqlManager.prototype.get = function (param, callback, caller) {
-        logger.applog.debug('[start]SqlManager get');
-        db.connect()
-            .then(function () {
-            logger.applog.debug('cxonnection success');
-            db.query('SELECT * FROM record;', [], function (error, result) {
-                if (error) {
-                    callback.call(caller, error);
-                }
-                else if (result != undefined) {
-                    callback.call(caller, result.rows);
-                }
-                else {
-                    callback.call(caller, undefined);
-                }
-            });
-        })["catch"](function (error) {
-            logger.applog.error('cxonnection error');
+    SqlManager.prototype.dbConnect = function () {
+        return new pg.Client({
+            'host': host,
+            'user': user,
+            'port': port,
+            'password': password,
+            'database': database
         });
     };
     return SqlManager;

@@ -9,9 +9,10 @@ var logger_1 = require("./logger/logger");
 var logger = new logger_1.Logger();
 // Controller
 var record_controller_1 = require("./routing/record/record-controller");
+var category_controller_1 = require("./routing/category/category-controller");
 /**
  * @const
- * @type { number }
+ * @type { any }
  */
 var PORT = process.env.PORT || 8080;
 /**
@@ -45,10 +46,12 @@ var Main = (function () {
      * @return { void }
      */
     Main.prototype.routing = function () {
+        var _this = this;
         var controller = {};
         controller['record'] = new record_controller_1.RecordController(app, '/record');
+        controller['category'] = new category_controller_1.CategoryController(app, '/category');
         app.get('/', function (request, response) {
-            logger.applog.debug('access!');
+            logger.debugLogger(_this.constructor.name, 'routhing', 'access');
             response.send('HelloWorld');
         });
     };
