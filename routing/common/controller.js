@@ -23,8 +23,8 @@ var Controller = (function () {
      * @param status { any } ステータス(200,500など)
      */
     Controller.prototype.returnResult = function (response, result, status) {
-        logger.applog.debug('status : ' + status);
-        logger.applog.debug('result : ' + result);
+        logger.infoLogger(this.constructor.name, 'returnResult', 'status : ' + status);
+        logger.infoLogger(this.constructor.name, 'returnResult', 'result : ' + result);
         response.status(status);
         response.send(result);
     };

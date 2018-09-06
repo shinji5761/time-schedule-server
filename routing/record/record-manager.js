@@ -73,7 +73,7 @@ var RecordManager = (function (_super) {
         var db = this.dbConnect();
         db.connect()
             .then(function () {
-            var query = new _this.pg.Query("INSERT INTO record(\n                    recordingDate, recordTime, parentCategoryId, childCategoryId\n                ) values($1,$2,$3,$4);\n                ", [param['recordingDate'], param['recordTime'], param['parentCategoryId'], param['childCategoryId']]);
+            var query = new _this.pg.Query("INSERT INTO record(\n                    recording_date, record_time, parent_category_id, child_category_id\n                ) values($1,$2,$3,$4);\n                ", [param['recordingDate'], param['recordTime'], param['parentCategoryId'], param['childCategoryId']]);
             db.query(query);
             query.on('error', function (error) {
                 callback.call(caller, error);

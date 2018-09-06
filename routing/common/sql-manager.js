@@ -55,7 +55,8 @@ var SqlManager = (function () {
             'user': user,
             'port': port,
             'password': password,
-            'database': database
+            'database': database,
+            'ssl': true
         });
     };
     return SqlManager;
