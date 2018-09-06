@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
 var pg = require("pg");
-var data = require("../../config/database.json");
-// import data = require( '../../config/database-heroku.json');
+// import data = require( '../../config/database.json');
+var data = require("../../config/database-heroku.json");
 // Logger
 var logger_1 = require("../../logger/logger");
 var logger = new logger_1.Logger();
