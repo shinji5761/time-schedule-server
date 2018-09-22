@@ -5,5 +5,6 @@ CREATE TABLE record (
     , record_time VARCHAR(8)
     , parent_category_id VARCHAR(6)
     , child_category_id VARCHAR(6)
+    , memo TEXT
     , PRIMARY KEY ( no )
 );

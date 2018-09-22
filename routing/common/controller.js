@@ -20,7 +20,7 @@ var Controller = (function () {
     /**
      * @param response { any }
      * @param result { any } 返却する値
-     * @param status { any } ステータス(200,500など)
+     * @param status { any } ステータス(200, 500など)
      */
     Controller.prototype.returnResult = function (response, result, status) {
         logger.infoLogger(this.constructor.name, 'returnResult', 'status : ' + status);

@@ -11,6 +11,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 exports.__esModule = true;
 var sql_manager_1 = require("../common/sql-manager");
+// Logger
+var logger_1 = require("../../logger/logger");
+var logger = new logger_1.Logger();
 /**
  * @class RecordManager
  * @extends SqlManager
@@ -69,13 +72,15 @@ var RecordManager = (function (_super) {
      */
     RecordManager.prototype.post = function (param, callback, caller) {
         var _this = this;
+        logger.debugLogger(this.constructor.name, 'post', 'start');
         var result = [];
         var db = this.dbConnect();
         db.connect()
             .then(function () {
-            var query = new _this.pg.Query("INSERT INTO record(\n                    recording_date, record_time, parent_category_id, child_category_id\n                ) values($1,$2,$3,$4);\n                ", [param['recordingDate'], param['recordTime'], param['parentCategoryId'], param['childCategoryId']]);
+            var query = new _this.pg.Query("INSERT INTO record(\n                    recording_date, record_time, parent_category_id, child_category_id, memo\n                ) values($1,$2,$3,$4,$5);\n                ", [param['recordingDate'], param['recordTime'], param['parentCategoryId'], param['childCategoryId'], param['memo']]);
             db.query(query);
             query.on('error', function (error) {
+                logger.errorLogger(_this.constructor.name, 'post', 'query error => ' + error);
                 callback.call(caller, error);
                 db.end();
             });
@@ -84,6 +89,7 @@ var RecordManager = (function (_super) {
                 db.end();
             });
         })["catch"](function (error) {
+            logger.errorLogger(_this.constructor.name, 'post', 'connection error => ' + error);
             callback.call(caller, error);
         });
     };
