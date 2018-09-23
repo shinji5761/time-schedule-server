@@ -34,7 +34,7 @@ var Controller = (function () {
      */
     Controller.prototype.get = function (request, response) {
         var _this = this;
-        var body = request.query.body;
+        var body = request.query;
         logger.infoLogger(this.constructor.name, 'get', 'Request Parameter = ' + body);
         this.dao.get(body, function (result, status) {
             _this.returnResult(response, result, status);

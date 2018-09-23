@@ -15,13 +15,13 @@ var sql_manager_1 = require("../common/sql-manager");
 var logger_1 = require("../../logger/logger");
 var logger = new logger_1.Logger();
 /**
- * @class RecordManager
+ * @class RecordListManager
  * @extends SqlManager
  * @export
  */
-var RecordManager = (function (_super) {
-    __extends(RecordManager, _super);
-    function RecordManager() {
+var RecordListManager = (function (_super) {
+    __extends(RecordListManager, _super);
+    function RecordListManager() {
         return _super.call(this) || this;
     }
     /**
@@ -31,8 +31,9 @@ var RecordManager = (function (_super) {
      * @param callback { Function } 戻り関数
      * @param caller { any } 呼び出し元
      */
-    RecordManager.prototype.get = function (param, callback, caller) {
+    RecordListManager.prototype.get = function (param, callback, caller) {
         var _this = this;
+        console.dir(param);
         var result = [];
         var db = this.dbConnect();
         db.connect()
@@ -56,20 +57,30 @@ var RecordManager = (function (_super) {
         });
     };
     /**
+     * データ取得(リスト)
+     *
+     * @param param { any } 検索パラメータ
+     * @param callback { Function } 戻り関数
+     * @param caller { any } 呼び出し元
+     */
+    RecordListManager.prototype.query = function (param, callback, caller) {
+        callback.call(caller);
+    };
+    /**
      * データ追加
      *
      * @param param { any } 検索パラメータ
      * @param callback { Function } 戻り関数
      * @param caller { any } 呼び出し元
      */
-    RecordManager.prototype.post = function (param, callback, caller) {
+    RecordListManager.prototype.post = function (param, callback, caller) {
         var _this = this;
         logger.debugLogger(this.constructor.name, 'post', 'start');
         var result = [];
         var db = this.dbConnect();
         db.connect()
             .then(function () {
-            var query = new _this.pg.Query("INSERT INTO record(\n                    recording_date, record_time, parent_category_id, child_category_id, memo\n                ) values($1,$2,$3,$4,$5);\n                ", [param['recording_date'], param['record_time'], param['parent_category_id'], param['child_category_id'], param['memo']]);
+            var query = new _this.pg.Query("INSERT INTO record(\n                    recording_date, record_time, parent_category_id, child_category_id, memo\n                ) values($1,$2,$3,$4,$5);\n                ", [param['recordingDate'], param['recordTime'], param['parentCategoryId'], param['childCategoryId'], param['memo']]);
             db.query(query);
             query.on('error', function (error) {
                 logger.errorLogger(_this.constructor.name, 'post', 'query error');
@@ -92,7 +103,7 @@ var RecordManager = (function (_super) {
      * @param callback { Function } 戻り関数
      * @param caller { any } 呼び出し元
      */
-    RecordManager.prototype.put = function (param, callback, caller) {
+    RecordListManager.prototype.put = function (param, callback, caller) {
         callback.call(caller);
     };
     /**
@@ -102,9 +113,9 @@ var RecordManager = (function (_super) {
      * @param callback { Function } 戻り関数
      * @param caller { any } 呼び出し元
      */
-    RecordManager.prototype["delete"] = function (param, callback, caller) {
+    RecordListManager.prototype["delete"] = function (param, callback, caller) {
         callback.call(caller);
     };
-    return RecordManager;
+    return RecordListManager;
 }(sql_manager_1.SqlManager));
-exports.RecordManager = RecordManager;
+exports.RecordListManager = RecordListManager;

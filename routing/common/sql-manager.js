@@ -59,6 +59,35 @@ var SqlManager = (function () {
             'ssl': true
         });
     };
+    SqlManager.prototype.deleteInvalidKey = function (param, keys) {
+        keys = keys.filter(function (value, index, array) {
+            return (param[value] != null || param[value] != undefined);
+        });
+    };
+    SqlManager.prototype.createSearchParam = function (param) {
+        var result = '';
+        var keys = Object.keys(param);
+        for (var index = 0; index < keys.length; index++) {
+            if (param[keys[index]] == null)
+                continue; // パラメータがない場合は次のキーへ
+            result = result + keys[index] + ' = ' + '$' + (index + 1);
+            if (index < keys.length - 1) {
+                result = result + ' AND ';
+            }
+        }
+        if (result != '')
+            result = ' WHERE ' + result;
+        return result;
+    };
+    SqlManager.prototype.createSearchValues = function (param) {
+        var result = [];
+        var keys = Object.keys(param);
+        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+            var key = keys_1[_i];
+            result.push(param[key]);
+        }
+        return result;
+    };
     return SqlManager;
 }());
 exports.SqlManager = SqlManager;
