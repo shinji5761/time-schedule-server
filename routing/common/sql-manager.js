@@ -59,11 +59,11 @@ var SqlManager = (function () {
             'ssl': true
         });
     };
-    SqlManager.prototype.deleteInvalidKey = function (param, keys) {
-        keys = keys.filter(function (value, index, array) {
-            return (param[value] != null || param[value] != undefined);
-        });
-    };
+    /**
+     * @protected
+     * @param param { Object } 検索するパラメータ
+     * @return { string } SQLのWHERE句
+     */
     SqlManager.prototype.createSearchParam = function (param) {
         var result = '';
         var keys = Object.keys(param);
@@ -79,6 +79,11 @@ var SqlManager = (function () {
             result = ' WHERE ' + result;
         return result;
     };
+    /**
+     * @protected
+     * @param param { Object } 検索するパラメータ
+     * @return { Array<any> } 検索パラメータの配列
+     */
     SqlManager.prototype.createSearchValues = function (param) {
         var result = [];
         var keys = Object.keys(param);

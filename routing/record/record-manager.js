@@ -93,7 +93,27 @@ var RecordManager = (function (_super) {
      * @param caller { any } 呼び出し元
      */
     RecordManager.prototype.put = function (param, callback, caller) {
-        callback.call(caller);
+        var _this = this;
+        logger.debugLogger(this.constructor.name, 'put', 'start');
+        var result = [];
+        var db = this.dbConnect();
+        db.connect()
+            .then(function () {
+            var query = new _this.pg.Query("UPDATE record SET recording_date = $1, record_time = $2, parent_category_id = $3, child_category_id = $4, memo = $5\n                 WHERE no = $6\n                ", [param['recording_date'], param['record_time'], param['parent_category_id'], param['child_category_id'], param['memo'], param['no']]);
+            db.query(query);
+            query.on('error', function (error) {
+                logger.errorLogger(_this.constructor.name, 'put', 'query error');
+                callback.call(caller, error);
+                db.end();
+            });
+            query.on('end', function (result) {
+                callback.call(caller, undefined, result);
+                db.end();
+            });
+        })["catch"](function (error) {
+            logger.errorLogger(_this.constructor.name, 'put', 'connection error');
+            callback.call(caller, error);
+        });
     };
     /**
      * データ削除
@@ -104,6 +124,8 @@ var RecordManager = (function (_super) {
      */
     RecordManager.prototype["delete"] = function (param, callback, caller) {
         callback.call(caller);
+    };
+    RecordManager.prototype.query = function (param, callback, caller) {
     };
     return RecordManager;
 }(sql_manager_1.SqlManager));

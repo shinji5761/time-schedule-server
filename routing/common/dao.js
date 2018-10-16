@@ -69,6 +69,34 @@ var Dao = (function () {
             callback.call(caller, error, status);
         }
     };
+    /**
+     * @param params { any }
+     * @param callback { Function }
+     * @param caller { any }
+     * @return { void }
+     */
+    Dao.prototype.put = function (params, callback, caller) {
+        var _this = this;
+        logger.debugLogger(this.constructor.name, 'post', 'start');
+        var result;
+        var status = 500;
+        try {
+            this.sqlManager.put(params, function (error, result) {
+                if (error) {
+                    callback.call(caller, error, status);
+                    return;
+                }
+                logger.infoLogger(_this.constructor.name, 'post', 'SQL Query Result : ' + result);
+                status = 200;
+                callback.call(caller, result, status);
+            }, this);
+        }
+        catch (error) {
+            logger.errorLogger(this.constructor.name, 'post', 'Dao Exception:' + error);
+            // 場合分けが必要
+            callback.call(caller, error, status);
+        }
+    };
     return Dao;
 }());
 exports.Dao = Dao;

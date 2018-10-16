@@ -33,7 +33,6 @@ var RecordListManager = (function (_super) {
      */
     RecordListManager.prototype.get = function (param, callback, caller) {
         var _this = this;
-        console.dir(param);
         var result = [];
         var db = this.dbConnect();
         db.connect()

@@ -16,6 +16,7 @@ var Controller = (function () {
         this.dao = dao;
         app.get(url, function (request, response) { _this.get(request, response); });
         app.post(url, function (request, response) { _this.post(request, response); });
+        app.put(url, function (request, response) { _this.put(request, response); });
     }
     /**
      * @param response { any }
@@ -49,6 +50,18 @@ var Controller = (function () {
         var body = request.body;
         logger.infoLogger(this.constructor.name, 'post', 'Request Parameter = ' + body);
         this.dao.post(body, function (result, status) {
+            _this.returnResult(response, result, status);
+        }, this);
+    };
+    /**
+     * @param request { any }
+     * @param response { any }
+     */
+    Controller.prototype.put = function (request, response) {
+        var _this = this;
+        var body = request.body;
+        logger.infoLogger(this.constructor.name, 'put', 'Request Parameter = ' + body);
+        this.dao.put(body, function (result, status) {
             _this.returnResult(response, result, status);
         }, this);
     };
