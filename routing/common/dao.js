@@ -77,7 +77,7 @@ var Dao = (function () {
      */
     Dao.prototype.put = function (params, callback, caller) {
         var _this = this;
-        logger.debugLogger(this.constructor.name, 'post', 'start');
+        logger.debugLogger(this.constructor.name, 'put', 'start');
         var result;
         var status = 500;
         try {
@@ -86,13 +86,41 @@ var Dao = (function () {
                     callback.call(caller, error, status);
                     return;
                 }
-                logger.infoLogger(_this.constructor.name, 'post', 'SQL Query Result : ' + result);
+                logger.infoLogger(_this.constructor.name, 'put', 'SQL Query Result : ' + result);
                 status = 200;
                 callback.call(caller, result, status);
             }, this);
         }
         catch (error) {
-            logger.errorLogger(this.constructor.name, 'post', 'Dao Exception:' + error);
+            logger.errorLogger(this.constructor.name, 'put', 'Dao Exception:' + error);
+            // 場合分けが必要
+            callback.call(caller, error, status);
+        }
+    };
+    /**
+     * @param params { any }
+     * @param callback { Function }
+     * @param caller { any }
+     * @return { void }
+     */
+    Dao.prototype["delete"] = function (params, callback, caller) {
+        var _this = this;
+        logger.debugLogger(this.constructor.name, 'delete', 'start');
+        var result;
+        var status = 500;
+        try {
+            this.sqlManager["delete"](params, function (error, result) {
+                if (error) {
+                    callback.call(caller, error, status);
+                    return;
+                }
+                logger.infoLogger(_this.constructor.name, 'delete', 'SQL Query Result : ' + result);
+                status = 200;
+                callback.call(caller, result, status);
+            }, this);
+        }
+        catch (error) {
+            logger.errorLogger(this.constructor.name, 'delete', 'Dao Exception:' + error);
             // 場合分けが必要
             callback.call(caller, error, status);
         }

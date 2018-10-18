@@ -17,6 +17,7 @@ var Controller = (function () {
         app.get(url, function (request, response) { _this.get(request, response); });
         app.post(url, function (request, response) { _this.post(request, response); });
         app.put(url, function (request, response) { _this.put(request, response); });
+        app["delete"](url, function (request, response) { _this["delete"](request, response); });
     }
     /**
      * @param response { any }
@@ -62,6 +63,14 @@ var Controller = (function () {
         var body = request.body;
         logger.infoLogger(this.constructor.name, 'put', 'Request Parameter = ' + body);
         this.dao.put(body, function (result, status) {
+            _this.returnResult(response, result, status);
+        }, this);
+    };
+    Controller.prototype["delete"] = function (request, response) {
+        var _this = this;
+        var body = request.body;
+        logger.infoLogger(this.constructor.name, 'delete', 'Request Parameter = ' + body);
+        this.dao["delete"](body, function (result, status) {
             _this.returnResult(response, result, status);
         }, this);
     };

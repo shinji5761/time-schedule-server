@@ -123,7 +123,27 @@ var RecordManager = (function (_super) {
      * @param caller { any } 呼び出し元
      */
     RecordManager.prototype["delete"] = function (param, callback, caller) {
-        callback.call(caller);
+        var _this = this;
+        logger.debugLogger(this.constructor.name, 'delete', 'start');
+        var result = [];
+        var db = this.dbConnect();
+        db.connect()
+            .then(function () {
+            var query = new _this.pg.Query("DELETE FROM record WHERE no = $1;", [param['no']]);
+            db.query(query);
+            query.on('error', function (error) {
+                logger.errorLogger(_this.constructor.name, 'delete', 'query error');
+                callback.call(caller, error);
+                db.end();
+            });
+            query.on('end', function (result) {
+                callback.call(caller, undefined, result);
+                db.end();
+            });
+        })["catch"](function (error) {
+            logger.errorLogger(_this.constructor.name, 'delete', 'connection error');
+            callback.call(caller, error);
+        });
     };
     RecordManager.prototype.query = function (param, callback, caller) {
     };
